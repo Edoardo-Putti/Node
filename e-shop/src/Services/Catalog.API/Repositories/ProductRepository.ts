@@ -20,12 +20,12 @@ class ProductRepository implements IProductRepository {
   }
 
   async GetProductByName(name: string): Promise<IProduct[] | null> {
-    const products = await this.model.find({ name: name });
+    const products = await this.model.find({ Name: name });
     return products;
   }
 
   async GetProductByCategory(categoryName: string): Promise<IProduct[] | null> {
-    const products = await this.model.find({ category: categoryName });
+    const products = await this.model.find({ Category: categoryName });
     return products;
   }
 

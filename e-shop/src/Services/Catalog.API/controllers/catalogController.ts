@@ -16,6 +16,55 @@ export class CatalogController implements IController {
     this._logger = logger;
     this.initRoutes();
   }
+  /**
+   * @swagger
+   * components:
+   *   schemas:
+   *     Product:
+   *       type: object
+   *       properties:
+   *         Name:
+   *           type: string
+   *         Category:
+   *           type: string
+   *         Summary:
+   *           type: string
+   *         Description:
+   *           type: string
+   *         ImageFile:
+   *           type: string
+   *         Price:
+   *           type: number
+   *       required:
+   *         - Name
+   *         - Category
+   *         - Summary
+   *         - Description
+   *         - ImageFile
+   *         - Price
+   *     NotFoundError:
+   *       type: object
+   *       properties:
+   *         statusCode:
+   *           type: integer
+   *           format: int32
+   *           example: 404
+   *         message:
+   *           type: string
+   *           example: Route not found
+   *         errors:
+   *           type: array
+   *           items:
+   *             type: object
+   *             properties:
+   *               message:
+   *                 type: string
+   *                 example: Page not found!
+   *       required:
+   *         - statusCode
+   *         - message
+   *         - errors
+   */
 
   // Define Swagger annotations for the `GetProducts` endpoint
   /**
@@ -32,7 +81,7 @@ export class CatalogController implements IController {
    *             schema:
    *               type: array
    *               items:
-   *                 $ref: '../models/Product'
+   *                 $ref: '#/components/schemas/Product'
    */
   private async GetProducts(req: Request, res: Response) {
     const products: IProduct[] = await this._productRepository.GetProducts();
@@ -59,13 +108,13 @@ export class CatalogController implements IController {
    *         content:
    *           application/json:
    *             schema:
-   *               $ref: '../models/Product'
+   *               $ref: '#/components/schemas/Product'
    *       404:
    *         description: Product not found.
    *         content:
    *           application/json:
    *             schema:
-   *               $ref: '@epmicro/common/errors/NotFoundError'
+   *               $ref: '#/components/schemas/NotFoundError'
    */
 
   private async GetProductById(req: Request, res: Response) {
@@ -100,7 +149,7 @@ export class CatalogController implements IController {
    *             schema:
    *               type: array
    *               items:
-   *                 $ref: 'e-shop/src/Services/Catalog.API/models/IProduct.ts'
+   *                 $ref: '#/components/schemas/Product'
    */
   private async GetProductByName(req: Request, res: Response) {
     const { name } = req.params;
@@ -131,7 +180,7 @@ export class CatalogController implements IController {
    *             schema:
    *               type: array
    *               items:
-   *                 $ref: 'e-shop/src/Services/Catalog.API/models/IProduct.ts'
+   *                 $ref: '#/components/schemas/Product'
    */
   private async GetProductByCategory(req: Request, res: Response) {
     const { category } = req.params;
@@ -152,14 +201,14 @@ export class CatalogController implements IController {
    *       content:
    *         application/json:
    *           schema:
-   *             $ref: 'e-shop/src/Services/Catalog.API/models/IProduct.ts'
+   *             $ref: '#/components/schemas/Product'
    *     responses:
    *       201:
    *         description: The newly created product
    *         content:
    *           application/json:
    *             schema:
-   *               $ref:'e-shop/src/Services/Catalog.API/models/IProduct.ts'
+   *               $ref:'#/components/schemas/Product'
    */
   private async CreateProduct(req: Request, res: Response) {
     const newProduct: IProduct = req.body;
@@ -180,14 +229,14 @@ export class CatalogController implements IController {
    *       content:
    *         application/json:
    *           schema:
-   *             $ref: 'e-shop/src/Services/Catalog.API/models/IProduct.ts'
+   *             $ref: '#/components/schemas/Product'
    *     responses:
    *       200:
    *         description: The updated product
    *         content:
    *           application/json:
    *             schema:
-   *               $ref: 'e-shop/src/Services/Catalog.API/models/IProduct.ts'
+   *               $ref: '#/components/schemas/Product'
    *       404:
    *         description: Product not found
    */
@@ -234,7 +283,7 @@ export class CatalogController implements IController {
       this.GetProductByName.bind(this)
     );
     this.router.get(
-      `${this.basePath}/GetProductById/:category`,
+      `${this.basePath}/GetProductByCategory/:category`,
       this.GetProductByCategory.bind(this)
     );
     this.router.post(
