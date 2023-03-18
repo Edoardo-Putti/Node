@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
-import { IProduct } from './IProduct';
+
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
+import { IProduct } from './IProduct';
 
 const productSchema = new Schema<IProduct>(
   {

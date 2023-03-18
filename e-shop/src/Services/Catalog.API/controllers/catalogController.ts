@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
-import { Product } from '../models/Product';
-import { IProduct } from '../models/IProduct';
+import { Product } from '../Models/Product';
+import { IProduct } from '../Models/IProduct';
 import ProductRepository from '../Repositories/ProductRepository';
 import { IController } from './IController';
 import logger from '../logger';

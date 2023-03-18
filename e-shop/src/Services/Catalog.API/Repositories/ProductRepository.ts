@@ -1,4 +1,4 @@
-import { IProduct } from '../models/IProduct';
+import { IProduct } from '../Models/IProduct';
 import { Model, UpdateWriteOpResult } from 'mongoose';
 import { IProductRepository } from './IProductRepository';
 

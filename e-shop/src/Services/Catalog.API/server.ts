@@ -5,7 +5,7 @@ import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError } from '@epmicro/common';
 import swaggerUi from 'swagger-ui-express';
 import swaggerConf from './swagger';
-import { CatalogController } from './controllers/catalogController';
+import { CatalogController } from './Controllers/catalogController';
 
 const server = express();
 const catalogController = new CatalogController();

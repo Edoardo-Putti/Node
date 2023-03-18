@@ -1,5 +1,5 @@
-import { IProduct } from '../models/IProduct';
-import { Product } from '../models/Product';
+import { IProduct } from '../Models/IProduct';
+import { Product } from '../Models/Product';
 
 export class CatalogContextSeed {
   public async SeedData() {
