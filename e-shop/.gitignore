@@ -4,6 +4,7 @@
 /node_modules
 /src/Services/Catalog.API/node_modules
 /src/Services/Basket.API/node_modules
+/src/Services/Discount/Discount.API/node_modules
 /.yarn
 
 # testing
