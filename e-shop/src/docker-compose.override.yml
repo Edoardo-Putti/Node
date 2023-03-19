@@ -7,7 +7,20 @@ services:
       - '27017:27017'
     volumes:
       - mongo_data:/data/db
-
+  basketdb:
+    container_name: basketdb-node
+    restart: always
+    ports:
+      - '6379:6379'
+  portainer:
+    container_name: portainer-node
+    restart: always
+    ports:
+      - '8080:8000'
+      - '9000:9000'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
   catalog.api:
     container_name: catalog.api-node
     environment:
@@ -16,3 +29,12 @@ services:
       - catalogdb
     ports:
       - '8000:80'
+
+  basket.api:
+    container_name: basket.api-node
+    environment:
+      - REDIS_URL=basketdb:6379
+    depends_on:
+      - basketdb
+    ports:
+      - '8001:80'

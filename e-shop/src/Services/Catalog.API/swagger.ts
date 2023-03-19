@@ -17,7 +17,7 @@ const options = {
       description: 'Local server',
     },
   ],
-  apis: ['./controllers/*.ts'],
+  apis: ['./Controllers/*.ts'],
 };
 
 const openapiSpecification = swaggerJsdoc(options);
