@@ -1,5 +1,4 @@
-import { Model, DataTypes } from 'sequelize';
-import { sequelize } from '..';
+import { Model, DataTypes, Sequelize } from 'sequelize';
 
 export interface CouponAttributes {
   id?: number;
@@ -14,26 +13,42 @@ class Coupon extends Model<CouponAttributes> implements CouponAttributes {
   public description!: string;
   public amount!: number;
 }
+export function initCoupon(sequelize: Sequelize) {
+  Coupon.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      productName: {
+        type: DataTypes.STRING(24),
+        allowNull: false,
+      },
+      description: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
+      amount: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+    },
+    {
+      sequelize,
+      tableName: 'Coupon',
+    }
+  );
+  return Coupon;
+}
 
-sequelize.define('Coupon', {
-  id: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  productName: {
-    type: DataTypes.STRING(24),
-    allowNull: false,
-  },
-  description: {
-    type: DataTypes.TEXT,
-    allowNull: true,
-  },
-  amount: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-});
+// sq.sync()
+//   .then(() => {
+//     console.log('Coupon table created successfully!');
+//   })
+//   .catch((error) => {
+//     console.error('Unable to create table: ', error);
+//   });
 
 export default Coupon;

@@ -1,9 +1,9 @@
-import { QueryInterface } from 'sequelize/types';
-import { sequelize } from '..';
+import { QueryInterface, Sequelize } from 'sequelize/types';
+
 import { DataTypes } from 'sequelize';
 import Coupon from '../Models/Coupon';
 
-export async function MigrateDatabase(): Promise<void> {
+export async function MigrateDatabase(sequelize: Sequelize): Promise<void> {
   try {
     await sequelize.authenticate();
     console.log('Connection to db has been established successfully.');
@@ -13,8 +13,15 @@ export async function MigrateDatabase(): Promise<void> {
     await queryInterface.createTable('Coupon', {
       id: {
         type: DataTypes.INTEGER,
+        allowNull: true,
         primaryKey: true,
         autoIncrement: true,
+      },
+      createdAt: {
+        type: DataTypes.DATE,
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
       },
       productName: {
         type: DataTypes.STRING(24),
@@ -31,7 +38,11 @@ export async function MigrateDatabase(): Promise<void> {
     });
 
     await Coupon.bulkCreate([
-      { productName: 'IPhone X', description: 'IPhone Discount', amount: 150 },
+      {
+        productName: 'IPhone X',
+        description: 'IPhone Discount',
+        amount: 150,
+      },
       {
         productName: 'Samsung 10',
         description: 'Samsung Discount',
@@ -41,6 +52,6 @@ export async function MigrateDatabase(): Promise<void> {
 
     console.log('Database migration successful.');
   } catch (error) {
-    console.error('Unable to connect to the database:', error);
+    console.error('Unable to connect to the database for migration:', error);
   }
 }

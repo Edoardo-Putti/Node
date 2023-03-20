@@ -63,6 +63,7 @@ services:
   discount.api:
     container_name: discount.api-node
     environment:
+      - DATABASE_URL=postgres://admin:admin1234@discountdb:5432/DiscountDb
       - DB=DiscountDb
       - USER=admin
       - PWD=admin1234
